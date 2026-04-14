@@ -1,1 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de Tabuada</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+    }
 
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      font-size: 16px;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-size: 18px;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Gerador de Tabuada</h1>
+
+  <input type="number" id="numero" placeholder="Insere um número">
+  <button onclick="gerarTabuada()">Gerar Tabuada</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    function gerarTabuada() {
+      let input = document.getElementById("numero").value;
+      let numero = Number(input);
+      let resultado = document.getElementById("resultado");
+
+      if (input === "") {
+        resultado.innerText = "Por favor insere um número válido.";
+        return;
+      }
+
+      let texto = "";
+
+      for (let i = 1; i <= 10; i++) {
+        texto += numero + " x " + i + " = " + (numero * i) + "\n";
+      }
+
+      resultado.innerText = texto;
+    }
+  </script>
+
+</body>
+</html>
