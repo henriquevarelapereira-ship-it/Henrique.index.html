@@ -1,1 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestor de Números</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #f4f4f4;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 200px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #333;
+      color: white;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #555;
+    }
+
+    #mensagem {
+      margin-top: 10px;
+      font-weight: bold;
+      color: red;
+    }
+
+    #lista {
+      margin-top: 15px;
+    }
+
+    #resultados {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Gestor de Números</h1>
+
+  <input type="number" id="numero" placeholder="Insere um número">
+  <div>
+    <button onclick="adicionarNumero()">Adicionar</button>
+    <button onclick="calcular()">Calcular</button>
+    <button onclick="limpar()">Limpar</button>
+  </div>
+
+  <p id="mensagem"></p>
+
+  <ul id="lista"></ul>
+
+  <div id="resultados"></div>
+
+  <script>
+    let numeros = [];
+
+    function adicionarNumero() {
+      let input = document.getElementById("numero").value;
+      let num = Number(input);
+      let mensagem = document.getElementById("mensagem");
+
+      mensagem.innerText = "";
+
+      if (input === "" || isNaN(num)) {
+        mensagem.innerText = "Por favor insere um número válido.";
+        return;
+      }
+
+      // verificar duplicados
+      for (let i = 0; i < numeros.length; i++) {
+        if (numeros[i] === num) {
+          mensagem.innerText = "Esse número já foi adicionado.";
+          return;
+        }
+      }
+
+      numeros.push(num);
+      atualizarLista();
+      document.getElementById("numero").value = "";
+    }
+
+    function atualizarLista() {
+      let lista = document.getElementById("lista");
+      lista.innerHTML = "";
+
+      for (let i = 0; i < numeros.length; i++) {
+        let item = document.createElement("li");
+        item.innerText = numeros[i];
+        lista.appendChild(item);
+      }
+    }
+
+    function calcular() {
+      let mensagem = document.getElementById("mensagem");
+      let resultados = document.getElementById("resultados");
+
+      mensagem.innerText = "";
+      resultados.innerHTML = "";
+
+      if (numeros.length === 0) {
+        mensagem.innerText = "A lista está vazia. Adiciona números primeiro.";
+        return;
+      }
+
+      let soma = 0;
+      let maior = numeros[0];
+      let menor = numeros[0];
+
+      for (let i = 0; i < numeros.length; i++) {
+        soma += numeros[i];
+
+        if (numeros[i] > maior) {
+          maior = numeros[i];
+        }
+
+        if (numeros[i] < menor) {
+          menor = numeros[i];
+        }
+      }
+
+      let media = soma / numeros.length;
+
+      resultados.innerHTML =
+        "Total: " + numeros.length + "<br>" +
+        "Soma: " + soma + "<br>" +
+        "Média: " + media + "<br>" +
+        "Maior: " + maior + "<br>" +
+        "Menor: " + menor;
+    }
+
+    function limpar() {
+      numeros = [];
+      document.getElementById("lista").innerHTML = "";
+      document.getElementById("resultados").innerHTML = "";
+      document.getElementById("mensagem").innerText = "";
+    }
+  </script>
+
+</body>
+</html>
 
